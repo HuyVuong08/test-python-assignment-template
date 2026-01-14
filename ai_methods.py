@@ -179,10 +179,15 @@ def a_star_search(problem: SearchProblem, heuristic: Callable = None) -> List:
     while frontier:
         _, _, node = heapq.heappop(frontier)
         
+        # Skip if we've already explored a better path to this state
+        if node.state in explored:
+            continue
+        
         if problem.is_goal_state(node.state):
             return reconstruct_path(node)
         
         explored.add(node.state)
+        frontier_states.pop(node.state, None)  # Remove from frontier tracking
         
         for successor, action, step_cost in problem.get_successors(node.state):
             child = Node(successor, node, action, node.path_cost + step_cost)
