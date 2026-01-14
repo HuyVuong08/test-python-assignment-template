@@ -87,20 +87,23 @@ def breadth_first_search(problem: SearchProblem) -> List:
         return []
     
     frontier = deque([start_node])  # FIFO queue for BFS
+    frontier_states = {start_node.state}  # Track states in frontier
     explored = set()
     
     while frontier:
         node = frontier.popleft()
+        frontier_states.discard(node.state)
         explored.add(node.state)
         
         for successor, action, step_cost in problem.get_successors(node.state):
             child = Node(successor, node, action, node.path_cost + step_cost)
             
-            if child.state not in explored and child not in frontier:
+            if child.state not in explored and child.state not in frontier_states:
                 if problem.is_goal_state(child.state):
                     # Reconstruct path
                     return reconstruct_path(child)
                 frontier.append(child)
+                frontier_states.add(child.state)
     
     return None  # No solution found
 
@@ -123,10 +126,12 @@ def depth_first_search(problem: SearchProblem) -> List:
         return []
     
     frontier = [start_node]  # Stack for DFS
+    frontier_states = {start_node.state}  # Track states in frontier
     explored = set()
     
     while frontier:
         node = frontier.pop()  # LIFO - pop from end
+        frontier_states.discard(node.state)
         
         if problem.is_goal_state(node.state):
             return reconstruct_path(node)
@@ -134,9 +139,10 @@ def depth_first_search(problem: SearchProblem) -> List:
         explored.add(node.state)
         
         for successor, action, step_cost in problem.get_successors(node.state):
-            if successor not in explored:
+            if successor not in explored and successor not in frontier_states:
                 child = Node(successor, node, action, node.path_cost + step_cost)
                 frontier.append(child)
+                frontier_states.add(child.state)
     
     return None  # No solution found
 
