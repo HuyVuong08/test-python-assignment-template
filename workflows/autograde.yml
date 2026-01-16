@@ -1,0 +1,19 @@
+
+These files define how tests run on push or PR. There are sample templates teachers use — check other Classroom starter repos for examples.:contentReference[oaicite:3]{index=3}
+
+---
+
+## 🧠 After these changes
+
+Once you:
+
+✔ add real starter code + tests  
+✔ enable **Template repository**  
+✔ push commits to `main`
+
+Anyone in your organization can click **Use this template** and create a starter repo that includes all files. That new repo is independent, with its own history.:contentReference[oaicite:4]{index=4}
+
+---
+
+If you want, I can **generate a full commit patch** (file contents) for you — just tell me what the assignment should *do* (e.g., what the Python code is supposed to solve).
+::contentReference[oaicite:5]{index=5}
